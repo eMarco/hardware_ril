@@ -384,7 +384,11 @@ static void writeStringToParcel(Parcel &p, const char *s) {
     char16_t *s16;
     size_t s16_len;
     s16 = strdup8to16(s, &s16_len);
+#ifdef OMAP_TUNA
+    p.writeString16(reinterpret_cast<uint16_t*>(s16), s16_len);
+#else
     p.writeString16(s16, s16_len);
+#endif
     free(s16);
 }
 
